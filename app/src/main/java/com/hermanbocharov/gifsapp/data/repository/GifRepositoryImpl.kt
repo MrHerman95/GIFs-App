@@ -9,8 +9,9 @@ import com.hermanbocharov.gifsapp.data.network.api.ApiService
 import com.hermanbocharov.gifsapp.domain.entities.GifInfo
 import com.hermanbocharov.gifsapp.domain.repository.GifRepository
 import kotlinx.coroutines.flow.Flow
+import javax.inject.Inject
 
-class GifRepositoryImpl(
+class GifRepositoryImpl @Inject constructor(
     private val apiService: ApiService,
     private val mapper: GifInfoMapper
 ) : GifRepository {
