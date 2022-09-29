@@ -4,6 +4,8 @@ import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.hermanbocharov.gifsapp.data.network.api.ApiService
 import com.hermanbocharov.gifsapp.domain.entities.GifInfo
+import retrofit2.HttpException
+import java.io.IOException
 
 class GiphyPagingSource(
     private val apiService: ApiService,
@@ -20,21 +22,24 @@ class GiphyPagingSource(
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, GifInfo> {
         val pageIndex: Int = params.key ?: 0
         val pageSize: Int = params.loadSize
+        val offset = pageIndex * pageSize
 
         return try {
             val gifsDto = apiService.getSearchGifsList(
                 searchKey = searchKey,
                 limit = pageSize,
-                offset = pageIndex
+                offset = offset
             )
 
             val gifs = gifsDto.gifs.map { mapper.mapGifInfoDtoToDomain(it) }
             val nextKey = if (gifs.size < pageSize) null else pageIndex + 1
             val prevKey = if (pageIndex == 0) null else pageIndex - 1
 
-            return LoadResult.Page(gifs, prevKey, nextKey)
-        } catch (e: Exception) {
-            LoadResult.Error(throwable = e)
+            LoadResult.Page(gifs, prevKey, nextKey)
+        } catch (exception: IOException) {
+            return LoadResult.Error(exception)
+        } catch (exception: HttpException) {
+            return LoadResult.Error(exception)
         }
     }
 }
