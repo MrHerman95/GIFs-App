@@ -8,6 +8,10 @@ data class GifInfoDto(
     @Expose
     val id: String,
 
+    @SerializedName("title")
+    @Expose
+    val title: String,
+
     @SerializedName("images")
     @Expose
     val imageRenditions: ImageRenditionsDto

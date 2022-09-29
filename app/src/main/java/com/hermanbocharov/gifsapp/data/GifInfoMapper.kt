@@ -8,6 +8,7 @@ class GifInfoMapper @Inject constructor() {
 
     fun mapGifInfoDtoToDomain(gifInfoDto: GifInfoDto) = GifInfo(
         id = gifInfoDto.id,
+        title = gifInfoDto.title,
         originalGifUrl = gifInfoDto.imageRenditions.original.url,
         previewGifUrl = gifInfoDto.imageRenditions.previewGif.url
     )
