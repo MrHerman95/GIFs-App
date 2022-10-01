@@ -1,6 +1,5 @@
 package com.hermanbocharov.gifsapp.presentation.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asFlow
@@ -10,13 +9,11 @@ import androidx.paging.cachedIn
 import com.hermanbocharov.gifsapp.domain.entities.GifInfo
 import com.hermanbocharov.gifsapp.domain.usecases.GetPagedGifsUseCase
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.flow.flatMapLatest
 import javax.inject.Inject
 
-@OptIn(ExperimentalCoroutinesApi::class, FlowPreview::class)
+@OptIn(ExperimentalCoroutinesApi::class)
 class MainViewModel @Inject constructor(
     private val getPagedGifsUseCase: GetPagedGifsUseCase
 ) : ViewModel() {
@@ -32,7 +29,8 @@ class MainViewModel @Inject constructor(
     }
 
     fun setSearchKey(value: String) {
-        if (searchKey.value == value) return
-        searchKey.postValue(value)
+        val valueLowerCaseTrimmed = value.lowercase().trim()
+        if (searchKey.value == valueLowerCaseTrimmed) return
+        searchKey.postValue(valueLowerCaseTrimmed)
     }
 }
