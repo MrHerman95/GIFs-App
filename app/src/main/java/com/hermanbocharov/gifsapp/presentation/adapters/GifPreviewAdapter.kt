@@ -7,6 +7,7 @@ import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.CircularProgressDrawable
 import com.bumptech.glide.Glide
+import com.hermanbocharov.gifsapp.R
 import com.hermanbocharov.gifsapp.databinding.ItemGifPreviewBinding
 import com.hermanbocharov.gifsapp.domain.entities.GifInfo
 
@@ -31,7 +32,7 @@ class GifPreviewAdapter :
         return GifPreviewViewHolder(binding)
     }
 
-    private fun loadGifPreview(iv: ImageView, url: String) {
+    private fun loadGifPreview(iv: ImageView, url: String?) {
         val context = iv.context
 
         val circularProgressDrawable = CircularProgressDrawable(context)
@@ -41,6 +42,7 @@ class GifPreviewAdapter :
 
         Glide.with(context)
             .asGif()
+            .error(R.drawable.gif_not_found)
             .load(url)
             .placeholder(circularProgressDrawable)
             .into(iv)

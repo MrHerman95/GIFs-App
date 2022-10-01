@@ -10,9 +10,9 @@ data class GifInfoEntity(
     val id: String,
     val title: String,
     @ColumnInfo(name = "original_gif_url")
-    val originalGifUrl: String,
+    val originalGifUrl: String?,
     @ColumnInfo(name = "preview_gif_url")
-    val previewGifUrl: String,
+    val previewGifUrl: String?,
     @ColumnInfo(name = "search_key")
     val searchKey: String
 )

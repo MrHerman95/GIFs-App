@@ -18,5 +18,5 @@ data class ImageDto(
 
     @SerializedName("url")
     @Expose
-    val url: String
+    val url: String?
 )
