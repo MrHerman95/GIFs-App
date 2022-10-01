@@ -1,6 +1,5 @@
 package com.hermanbocharov.gifsapp.data
 
-import android.util.Log
 import androidx.paging.ExperimentalPagingApi
 import androidx.paging.LoadType
 import androidx.paging.PagingState
@@ -34,8 +33,6 @@ class GiphyRemoteMediator @AssistedInject constructor(
 
         val limit = state.config.pageSize
         val offset = pageIndex * limit
-
-        Log.d("RemoteMediator", "loadType = $loadType, pageIndex = $pageIndex, limit = $limit, offset = $offset")
 
         return try {
             val gifInfoList = getGifsInfo(limit, offset)
