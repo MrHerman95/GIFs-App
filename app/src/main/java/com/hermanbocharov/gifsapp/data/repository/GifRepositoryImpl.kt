@@ -1,21 +1,22 @@
 package com.hermanbocharov.gifsapp.data.repository
 
-import androidx.paging.Pager
-import androidx.paging.PagingConfig
-import androidx.paging.PagingData
+import androidx.paging.*
 import com.hermanbocharov.gifsapp.data.GifInfoMapper
-import com.hermanbocharov.gifsapp.data.GiphyPagingSource
-import com.hermanbocharov.gifsapp.data.network.api.ApiService
+import com.hermanbocharov.gifsapp.data.GiphyRemoteMediator
+import com.hermanbocharov.gifsapp.data.network.database.dao.GifInfoDao
 import com.hermanbocharov.gifsapp.domain.entities.GifInfo
 import com.hermanbocharov.gifsapp.domain.repository.GifRepository
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
 class GifRepositoryImpl @Inject constructor(
-    private val apiService: ApiService,
+    private val gifInfoDao: GifInfoDao,
+    private val remoteMediatorFactory: GiphyRemoteMediator.Factory,
     private val mapper: GifInfoMapper
 ) : GifRepository {
 
+    @OptIn(ExperimentalPagingApi::class)
     override fun getPagedGifs(searchKey: String): Flow<PagingData<GifInfo>> {
 
         return Pager(
@@ -24,8 +25,13 @@ class GifRepositoryImpl @Inject constructor(
                 enablePlaceholders = false,
                 initialLoadSize = PAGE_SIZE
             ),
-            pagingSourceFactory = { GiphyPagingSource(apiService, mapper, searchKey) }
-        ).flow
+            remoteMediator = remoteMediatorFactory.create(searchKey),
+            pagingSourceFactory = { gifInfoDao.getPagingSource(searchKey) }
+        )
+            .flow
+            .map { pagingData ->
+                pagingData.map { mapper.mapGifInfoEntityToDomain(it) }
+            }
     }
 
     companion object {
