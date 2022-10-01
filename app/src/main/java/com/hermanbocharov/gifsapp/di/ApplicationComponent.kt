@@ -3,8 +3,6 @@ package com.hermanbocharov.gifsapp.di
 import android.app.Application
 import com.hermanbocharov.gifsapp.presentation.GifFullscreenFragment
 import com.hermanbocharov.gifsapp.presentation.GifPreviewFragment
-import com.hermanbocharov.gifsapp.presentation.GifsApp
-import com.hermanbocharov.gifsapp.presentation.MainActivity
 import dagger.BindsInstance
 import dagger.Component
 

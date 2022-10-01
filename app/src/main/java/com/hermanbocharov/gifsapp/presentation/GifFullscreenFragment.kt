@@ -2,7 +2,6 @@ package com.hermanbocharov.gifsapp.presentation
 
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -49,13 +48,11 @@ class GifFullscreenFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        Log.d("Presentation", "GifFullscreenFragment viewModel $viewModel")
         val gifPosition = getGifPosition()
-        Log.d("Presentation", "gifPosition $gifPosition")
         val adapter = GifOriginalAdapter()
         binding.viewPagerGif.adapter = adapter
-        binding.viewPagerGif.setCurrentItem(gifPosition, false)
         observeGifOriginals(adapter)
+        binding.viewPagerGif.setCurrentItem(gifPosition, false)
     }
 
     private fun observeGifOriginals(adapter: GifOriginalAdapter) {
