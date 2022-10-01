@@ -1,7 +1,7 @@
 package com.hermanbocharov.gifsapp.data.repository
 
 import androidx.paging.*
-import com.hermanbocharov.gifsapp.data.GifInfoMapper
+import com.hermanbocharov.gifsapp.data.mapper.GifInfoMapper
 import com.hermanbocharov.gifsapp.data.GiphyRemoteMediator
 import com.hermanbocharov.gifsapp.data.network.database.dao.GifInfoDao
 import com.hermanbocharov.gifsapp.domain.entities.GifInfo

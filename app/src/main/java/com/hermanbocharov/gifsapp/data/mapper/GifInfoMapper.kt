@@ -1,4 +1,4 @@
-package com.hermanbocharov.gifsapp.data
+package com.hermanbocharov.gifsapp.data.mapper
 
 import com.hermanbocharov.gifsapp.data.network.database.entities.GifInfoEntity
 import com.hermanbocharov.gifsapp.data.network.model.GifInfoDto

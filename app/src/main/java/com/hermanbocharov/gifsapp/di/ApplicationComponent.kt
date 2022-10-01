@@ -1,8 +1,8 @@
 package com.hermanbocharov.gifsapp.di
 
 import android.app.Application
-import com.hermanbocharov.gifsapp.presentation.GifFullscreenFragment
-import com.hermanbocharov.gifsapp.presentation.GifPreviewFragment
+import com.hermanbocharov.gifsapp.presentation.fragments.GifFullscreenFragment
+import com.hermanbocharov.gifsapp.presentation.fragments.GifPreviewFragment
 import dagger.BindsInstance
 import dagger.Component
 

@@ -1,4 +1,4 @@
-package com.hermanbocharov.gifsapp.presentation
+package com.hermanbocharov.gifsapp.presentation.fragments
 
 import android.content.Context
 import android.os.Bundle
@@ -11,6 +11,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import com.hermanbocharov.gifsapp.R
 import com.hermanbocharov.gifsapp.databinding.FragmentGifPreviewBinding
+import com.hermanbocharov.gifsapp.presentation.GifsApp
 import com.hermanbocharov.gifsapp.presentation.adapters.DefaultLoadStateAdapter
 import com.hermanbocharov.gifsapp.presentation.adapters.GifPreviewAdapter
 import com.hermanbocharov.gifsapp.presentation.adapters.TryAgainAction

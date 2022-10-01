@@ -3,6 +3,7 @@ package com.hermanbocharov.gifsapp.presentation
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.hermanbocharov.gifsapp.R
+import com.hermanbocharov.gifsapp.presentation.fragments.GifPreviewFragment
 
 class MainActivity : AppCompatActivity() {
 

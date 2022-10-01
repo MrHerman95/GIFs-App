@@ -4,6 +4,7 @@ import androidx.paging.ExperimentalPagingApi
 import androidx.paging.LoadType
 import androidx.paging.PagingState
 import androidx.paging.RemoteMediator
+import com.hermanbocharov.gifsapp.data.mapper.GifInfoMapper
 import com.hermanbocharov.gifsapp.data.network.api.ApiService
 import com.hermanbocharov.gifsapp.data.network.database.dao.GifInfoDao
 import com.hermanbocharov.gifsapp.data.network.database.entities.GifInfoEntity
