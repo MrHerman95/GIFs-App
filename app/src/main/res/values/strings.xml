@@ -5,4 +5,5 @@
     <string name="desc_gif_preview">This is a preview of a GIF</string>
     <string name="load_error">Oops, error loading data :(</string>
     <string name="btn_retry">Retry</string>
+    <string name="desc_gif_original">This is an original size of a GIF</string>
 </resources>
