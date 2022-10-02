@@ -20,3 +20,6 @@ Android приложение, использующее Giphy API, для заг�
 по экрану **DONE**
 ### Technologies, patterns, etc.
 Kotlin, Paging 3, ViewPager2, Retrofit 2, Room, Kotlin coroutines, Glide, Dagger 2, MVVM, Clean Architecture
+
+### Bugs
+TODO: fix bugs - a gif is displayed in RecyclerView with the incorrect position

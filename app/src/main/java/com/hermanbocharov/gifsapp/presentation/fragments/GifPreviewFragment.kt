@@ -9,6 +9,8 @@ import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
+import androidx.paging.LoadState
+import androidx.recyclerview.widget.RecyclerView
 import com.hermanbocharov.gifsapp.R
 import com.hermanbocharov.gifsapp.databinding.FragmentGifPreviewBinding
 import com.hermanbocharov.gifsapp.presentation.GifsApp
@@ -20,6 +22,8 @@ import com.hermanbocharov.gifsapp.presentation.viewmodel.ViewModelFactory
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.debounce
+import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.launch
 import java.util.*
 import javax.inject.Inject
@@ -65,6 +69,8 @@ class GifPreviewFragment : Fragment() {
 
     private fun setupGifPreviewList() {
         val adapter = GifPreviewAdapter()
+        adapter.stateRestorationPolicy =
+            RecyclerView.Adapter.StateRestorationPolicy.PREVENT_WHEN_EMPTY
         val tryAgainAction: TryAgainAction = { adapter.retry() }
         val footerAdapter = DefaultLoadStateAdapter(tryAgainAction)
         val adapterWithLoadState = adapter.withLoadStateFooter(footerAdapter)
@@ -127,11 +133,22 @@ class GifPreviewFragment : Fragment() {
     @OptIn(FlowPreview::class)
     private fun observeLoadState(adapter: GifPreviewAdapter) {
         lifecycleScope.launch {
-            adapter.loadStateFlow.debounce(200).collectLatest { state ->
-                mainLoadStateHolder.bind(state.refresh)
-            }
+            adapter.loadStateFlow.debounce(200)
+                .distinctUntilChanged { old, new ->
+                    old.mediator?.prepend?.endOfPaginationReached.isTrue() ==
+                            new.mediator?.prepend?.endOfPaginationReached.isTrue()
+                }
+                .filter {
+                    it.refresh is LoadState.NotLoading
+                }
+                .collect { state ->
+                    mainLoadStateHolder.bind(state.refresh)
+                    binding.rvGifPreview.scrollToPosition(0)
+                }
         }
     }
+
+    private fun Boolean?.isTrue() = this != null && this
 
     override fun onDestroyView() {
         super.onDestroyView()
